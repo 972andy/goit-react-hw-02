@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+// import reactLogo from './assets/react.svg';
+// import viteLogo from '/vite.svg';
 import './App.css';
-import Description from './Description/Description';
-import Options from './Options/Options';
-import Feedback from './Feedback/Feedback';
+
+import Options from '../Options/Options';
+import Feedback from '../Feedback/Feedback';
+import Description from '../Description/Description';
 
 const App = () => {
   const [feedback, setFeedback] = useState(() => {
