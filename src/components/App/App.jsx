@@ -6,10 +6,11 @@ import './App.css';
 import Options from '../Options/Options';
 import Feedback from '../Feedback/Feedback';
 import Description from '../Description/Description';
+import Notification from '../Notification/Notification';
 
 const App = () => {
   const [feedback, setFeedback] = useState(() => {
-    // Спробуйте отримати дані з localStorage при ініціалізації
+   
     const savedFeedback = localStorage.getItem('feedback');
     return savedFeedback ? JSON.parse(savedFeedback) : { good: 0, neutral: 0, bad: 0 };
   });
@@ -26,11 +27,12 @@ const App = () => {
       bad: 0,
     });
   };
-
-  // Використовуйте useEffect для збереження feedback у localStorage
+    const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+    const positiveFeedback = Math.round((feedback.good / totalFeedback) * 100)
+  
   useEffect(() => {
     localStorage.setItem('feedback', JSON.stringify(feedback));
-  }, [feedback]); // Залежність feedback - оновлювати localStorage при його зміні
+  }, [feedback]); 
 
   return (
     <>
@@ -40,7 +42,7 @@ const App = () => {
         addFeedback={addFeedback}
         resetFeedback={resetFeedback}
       />
-      <Feedback feedback={feedback} />
+      { totalFeedback > 0 ? <Feedback feedback={feedback} totalFeedback={totalFeedback} positiveFeedback={ positiveFeedback } /> : <Notification totalFeedback ={totalFeedback} /> }
     </>
   );
 };
